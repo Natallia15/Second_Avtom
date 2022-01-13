@@ -8,7 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 public class SecondTest {
     WebDriver driver;
@@ -18,9 +20,10 @@ public class SecondTest {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        //1 driver.get("https://the-internet.herokuapp.com/add_remove_elements//");
-        //2 driver.get("https://the-internet.herokuapp.com/dropdown");
-        driver.get("https://catalog.onliner.by/superprice");
+        //1.driver.get("https://the-internet.herokuapp.com/add_remove_elements//");
+        //2.driver.get("https://the-internet.herokuapp.com/dropdown");
+        // 3-5.driver.get("https://catalog.onliner.by");
+        driver.get("https://the-internet.herokuapp.com/download");
     }
 
     // открыть страницу и сравнить название делейт на кнопке
@@ -34,6 +37,8 @@ public class SecondTest {
 
 
     // открыть список и нажать на второй элемент
+
+
     @Test
     public void secondTest() {
         WebElement element2 = driver.findElement(By.xpath("//*[@id=\"dropdown\"]"));
@@ -60,11 +65,21 @@ public class SecondTest {
         list.forEach(item ->
                 System.out.println(item.getText()));
     }
+// войти в автобарахолку, найти мерседес, 13 номер, вывести в консоль ссылку на этот мерс
+    // @Test
+    //public void fiveTest() {
+    // WebElement element4 = driver.findElement(By.xpath("//ul[@class=\"b-main-navigation\"]/li[3]"));
+    // element4.click();
+    // WebElement element5 = driver.findElement(By.xpath("//contains(text(), 'Марка')]/following-sibling::div"));
+    // WebElement element6 = driver.findElement(By.xpath("//ul[@class=\"dropdown-style__list dropdown-style__list_brand\"]li[Mercedes-Benz]"));
+    //element6.click();
 
-    // войти в автобарахолку, найти мерседес, вывести в консоль ссылку на 32-й мерс
 
-    @Test
-    public void fiveTest() throws InterruptedException {
+    //Assert.assertEquals(element5.getText(), "Mercedes");
+
+    // проверить наличие теста "Поиск в каталоге"
+
+    public void sevenTest() throws InterruptedException {
         driver.get("https://www.onliner.by/");
         WebElement avtobaraholkaElement = driver.findElement(By.xpath("//ul[@class=\"b-main-navigation\"]/li[3]"));
         avtobaraholkaElement.click();
@@ -80,18 +95,43 @@ public class SecondTest {
         listMers.get(31).click();
 
         Assert.assertEquals(driver.getCurrentUrl(),s);
+    public void fiveTest() {
+        WebElement stroka = driver.findElement(By.xpath("//input[@class='fast-search__input']"));
 
+        //System.out.println(stroka.getAttribute("placeholder"));
+
+        //stroka.getAttribute("placeholder").contains("Поиск в каталоге");
+        System.out.println(stroka.getAttribute("placeholder").contains("Поиск в Каталоге"));
+        Assert.assertTrue(stroka.getAttribute("placeholder").contains("Поиск в Каталоге"));
     }
 
+    //перейти на стр скачать случ файл и проверить скачался ли он на комп
     @Test
-    public void sixTest() throws InterruptedException {
-        driver.get("https://ab.onliner.by/mercedes-benz");
-        List<WebElement> listMers = driver.findElements(By.xpath("//a[starts-with(@href,'/mercedes-benz')]"));
-        System.out.println(listMers.size());
-        listMers.get(31).click();
-        Thread.sleep(1000);
-
+    public void eightTest() {
+            Random random = new Random();
+            List<WebElement> list = driver.findElements(By.xpath("//div[@class='example']//a"));
+            list.get(random.nextInt(list.size())).click();
+            long beforeSize = getFolderSize();
+        }
+    private long getFolderSize() {
+        String folderPath = "C:\\Users\\st.ITSTEP";
+        File file = new File(folderPath);
+        long length = 0;
+        for (int i = 0; i < file.list().length; i++) {
+            File tmp = new File(folderPath + "\\" + file.list()[i]);
+            length += tmp.length();
+            System.out.println(file.list()[i] + "-------------" + tmp.length());
+        }
+        return length;
     }
-
 
 }
+
+
+
+
+
+
+
+
+
