@@ -66,7 +66,7 @@ public class SecondTest {
                 System.out.println(item.getText()));
     }
 
-    // проверить наличие теста "Поиск в каталоге"
+
     @Test
     public void sevenTest() throws InterruptedException {
         driver.get("https://www.onliner.by/");
@@ -78,7 +78,6 @@ public class SecondTest {
         WebElement mersIcon = driver.findElement(By.xpath("//li[@title='Mercedes-Benz']"));
         mersIcon.click();
         Thread.sleep(1000);
-        //List<WebElement> listMers = driver.findElements(By.xpath("//a[starts-with(@href,'/mercedes-benz')]"));
         List<WebElement> listMers = driver.findElements(By.xpath("//a[@class='vehicle-form__offers-unit']"));
         System.out.println(listMers.size());
         String s = listMers.get(3).getAttribute("href");
@@ -87,7 +86,7 @@ public class SecondTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), s);
     }
-        // сравнить зпись
+    // проверить наличие теста "Поиск в каталоге"
     /*@Test
     public void fiveTest() {
         WebElement stroka = driver.findElement(By.xpath("//input[@class='fast-search__input']"));
